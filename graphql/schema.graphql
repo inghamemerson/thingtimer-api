@@ -1,0 +1,44 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+type Query {
+    things(uuids: [String!] @in(key: "uuid"), trashed: Trashed @trashed): [Thing!]! @all @softDeletes
+    thing(uuid: String @eq): Thing @find
+}
+
+type Mutation {
+  createThing(title: String!, quantity: String): Thing! @create
+  updateThing(id: ID!, quantity: String): Thing @update
+  deleteThing(id: ID!): Thing @delete
+}
+
+type Thing {
+    id: ID!
+    uuid: String!
+    title: String!
+    quantity: String
+    timers: [Timer!] @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+
+type Timer {
+    id: ID!
+    name: String!
+    thing: Thing! @belongsTo
+    started_at: DateTime!
+    ended_at: DateTime
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+
+enum Trashed {
+    ONLY @enum(value: "only")
+    WITH @enum(value: "with")
+    WITHOUT @enum(value: "without")
+}
