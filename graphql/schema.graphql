@@ -7,7 +7,6 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 type Query {
     things(uuids: [String!] @in(key: "uuid"), trashed: Trashed @trashed): [Thing!]! @all @softDeletes
     thing(uuid: String @eq): Thing @find
-    # timers(thing_id: [String!] @in(key: "uuid"), trashed: Trashed @trashed): [Thing!]! @all @softDeletes
     timer(id: String @eq): Timer @find
 }
 

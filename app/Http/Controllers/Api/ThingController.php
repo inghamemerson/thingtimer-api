@@ -17,7 +17,7 @@ class ThingController extends Controller
      */
     public function index()
     {
-        return false;
+        return Thing::all();
     }
 
     // /**
