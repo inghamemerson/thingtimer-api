@@ -7,12 +7,17 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 type Query {
     things(uuids: [String!] @in(key: "uuid"), trashed: Trashed @trashed): [Thing!]! @all @softDeletes
     thing(uuid: String @eq): Thing @find
+    # timers(thing_id: [String!] @in(key: "uuid"), trashed: Trashed @trashed): [Thing!]! @all @softDeletes
+    timer(id: String @eq): Timer @find
 }
 
 type Mutation {
   createThing(title: String!, quantity: String): Thing! @create
-  updateThing(id: ID!, quantity: String): Thing @update
+  updateThing(id: ID!, title: String, quantity: String): Thing @update
   deleteThing(id: ID!): Thing @delete
+  createTimer(name: String!, thing_id: String!, started_at: DateTime!, ended_at: DateTime): Timer! @create
+  updateTimer(id: ID!, name: String, started_at: DateTime, ended_at: DateTime): Timer @update
+  deleteTimer(id: ID!): Timer @delete
 }
 
 type Thing {
