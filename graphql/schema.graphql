@@ -5,11 +5,12 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 type Query {
-  things(uuids: [String!] @in(key: "uuid"), trashed: Trashed @trashed): [Thing!]! @all @softDeletes
+  things(uuids: [String!] @in(key: "uuid"), trashed: Trashed @trashed, orderBy: [ThingsOrderByClause!] @orderBy): [Thing!]! @all @softDeletes
   thing(uuid: String @eq): Thing @find
   timer(id: String @eq): Timer @find
 }
 
+# TODO add validation rulesets to schema? https://lighthouse-php.com/master/security/validation.html#validating-arguments
 type Mutation {
   createThing(
     title: String!,
@@ -61,6 +62,16 @@ type Timer {
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
+}
+
+input ThingsOrderByClause{
+    field: String!
+    order: SortOrder!
+}
+
+enum SortOrder {
+    ASC
+    DESC
 }
 
 enum Trashed {
