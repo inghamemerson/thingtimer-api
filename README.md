@@ -19,28 +19,24 @@ The Thing Timer GraphQL backend was designed for the [Thing Timer client](https:
 
 To get a local instance of the backend running, you need [Docker](https://docs.docker.com/docker-for-mac/install/) locally. Once you’ve got that set up and the repo cloned, open up your terminal and `cd` into this bad Larry.
 
-
-1. First up let’s get our environment running. Run the code below in the root of the project, hopefully 🤞you don’t bump into any major issues here.
-```
-docker-compose up -d nginx postgres workspace
-```
- 
-2. Now, let’s copy our environment variable file over since we’re upstanding, security minded devs who don’t commit that. We’ll copy the example file instead of renaming it, which would be mean to anyone else who wants to use this. Don’t worry about adding to this yet.
+1. First, from the root directory, let’s copy our environment variable file over since we’re upstanding, security minded devs who don’t commit that. We’ll copy the example file instead of renaming it, which would be mean to anyone else who wants to use this. Don’t worry about adding to this yet.
 ```
 cp .env.example .env
 ```
 
-3. Now we need to hop into our workspace and run some things to get started. From the root of our project, let’s hop into the `laradock/` directory.
+2. Next up let’s get our environment running. Run the code below in the `laradock/` directory of the project, hopefully 🤞you don’t bump into any major issues here.
 ```
 cd laradock/
+cp env-example .env
+docker-compose up -d nginx postgres workspace
 ```
 
-4. Then, we’ll jump into the container our app is running in.
+3. Then, we’ll jump into the container our app is running in.
 ```
 docker-compose exec workspace bash
 ```
 
-5. Now that you’re in your workspace, we can install dependencies, generate an app key, and migrate the database. The credentials in the example .env file should work for the Docker DB but make sure you get those changed if you need to.
+4. Now that you’re in your workspace, we can install dependencies, generate an app key, and migrate the database. The credentials in the example .env file should work for the Docker DB but make sure you get those changed if you need to.
 
 ```
 composer install
