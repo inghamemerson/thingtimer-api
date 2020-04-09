@@ -1,12 +1,21 @@
+# dependencies
 /node_modules
+/vendor
+
+# misc
 /public/hot
 /public/storage
 /storage/*.key
-/vendor
-.env
-.env.backup
+npm-debug.log
+yarn-error.log
+
+.vscode/
+
+# Laravel
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
-npm-debug.log
-yarn-error.log
+
+# Secure
+.env
+.env.backup
