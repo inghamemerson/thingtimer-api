@@ -119,3 +119,4 @@ Some notes I have in mind for the future if I continue to tinker on this:
 - [ ] Tighten up security either through CORS or user login or both
 - [ ] Ensure Things are not global, associating them with those who create them (users or some UUID stored locally)
 - [ ] Add more strict [validation](https://lighthouse-php.com/master/security/validation.html#validating-arguments) in GraphQL queries
+- [ ] Integrate unit testng adn get some code coverage
