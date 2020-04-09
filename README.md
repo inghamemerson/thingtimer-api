@@ -2,11 +2,11 @@
 
 ## About
 
-The Thing Timer GraphQL backend is primarily for the [Thing Timer client](https://github.com/inghamemerson/thingtimer-client) application. It’s a simple Laravel application that serves a GraphQL endpoint to make a `Thing` and associate a `Timer` with the `Thing`. It lives [here](https://api.thingtimer.com/graphql-playground) and doesn’t have any security in place because I haven’t gotten that far yet!
+The Thing Timer GraphQL backend was designed for the [Thing Timer client](https://github.com/inghamemerson/thingtimer-client) application. It is a simple Laravel application that serves a GraphQL endpoint to make a `Thing` and associate a `Timer` with the `Thing`. It lives [here](https://api.thingtimer.com/graphql-playground) and does not have any security.
 
 ## What it uses
 
-- [PHP](https://www.php.net) is the language. You could probably get away without installing this and just relying on Docker.
+- [PHP](https://www.php.net) You could probably get away without installing this and just relying on Docker.
 - [Laravel](https://laravel.com/) PHP framework foundation.
 - [GraphQL](https://graphql.org) ain’t no REST for the query… get it?
 - [Lighthouse](https://lighthouse-php.com) GraphQL for Laravel.
@@ -17,7 +17,7 @@ The Thing Timer GraphQL backend is primarily for the [Thing Timer client](https:
 
 ## Getting Started
 
-To get a local instance of the backend running, you should just need [Docker](https://docs.docker.com/docker-for-mac/install/) locally. Once you’ve got that set up and the repo cloned, open up your terminal and `cd` into this bad Larry.
+To get a local instance of the backend running, you need [Docker](https://docs.docker.com/docker-for-mac/install/) locally. Once you’ve got that set up and the repo cloned, open up your terminal and `cd` into this bad Larry.
 
 
 1. First up let’s get our environment running. Run the code below in the root of the project, hopefully 🤞you don’t bump into any major issues here.
@@ -34,12 +34,13 @@ cp .env.example .env
 ```
 cd laradock/
 ```
-Then, we’ll jump into the container our app is running in.
+
+4. Then, we’ll jump into the container our app is running in.
 ```
 docker-compose exec workspace bash
 ```
 
-4. Now that you’re in your workspace, we can install dependencies, generate an app key, and migrate the database. The credentials in the example .env file should work for the Docker DB but make sure you get those changed if you need to.
+5. Now that you’re in your workspace, we can install dependencies, generate an app key, and migrate the database. The credentials in the example .env file should work for the Docker DB but make sure you get those changed if you need to.
 
 ```
 composer install
@@ -47,12 +48,12 @@ php artisan key:generate
 php artisan migrate
 ```
 
-5. Awesome! Things should be up and running and you should be able to go to the [playground](http://localhost/graphql-playground).
+6. Awesome! Things should be up and running and you should be able to go to the [playground](http://localhost/graphql-playground).
 
 ## Where the meat is
 
 ### Models
-The models are straightforward for both the [Thing](https://github.com/inghamemerson/thingtimer-api/blob/master/app/Models/Thing.php) and the [Timer](https://github.com/inghamemerson/thingtimer-api/blob/master/app/Models/Timer.php). The biggest things here are that we have the relationship as Laravel likes it, we’re casting timestamps, and we’re using softdeletes.
+The models are straightforward for both the [Thing](https://github.com/inghamemerson/thingtimer-api/blob/master/app/Models/Thing.php) and the [Timer](https://github.com/inghamemerson/thingtimer-api/blob/master/app/Models/Timer.php). The most important details here are that we have the relationships as Laravel likes them, we’re casting timestamps, and we’re using softdeletes.
 
 ### Observers
 The [ThingObserver](https://github.com/inghamemerson/thingtimer-api/blob/master/app/Observers/ThingObserver.php) is important to familiarize with since it is responsible for behind the scenes magic. When we create a new `Thing`, it generates the `uuid` when the create event is running (during the event and not after since the DB requires a `uuid`), so we don’t need to worry about it client-side. It also deletes every `Timer` associated when the `Thing` itself is deleted, so that we don’t have some garbage floating around in the database. I know, softdeletes so everything still sticks around…
@@ -101,7 +102,7 @@ mutation makeAThing{
 ```
 
 #### Make a Timer
-make sure the ID you pass here is the ID of an existing thing and that you replace the date string with an actual date.
+Make sure the ID you pass here is the ID of an existing thing and that you replace the date string with an actual date.
 ```
 mutation makeATimer{
   createTimer(id: 1, started_at: “YYYY-MM-DD HH:mm:ss”){
